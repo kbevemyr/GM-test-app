@@ -7,7 +7,5 @@ cache:
 script:
   - npm test
   - npm run build
-deploy:
-  project: ./build/
 on:
   branch: master
