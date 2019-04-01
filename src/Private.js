@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import { verifyCredentials, getMyUser } from './store/actions';
+import { getMyUser } from './store/actions';
 import { initSocket } from './WebSocketService';
 
 import PeopleList from './Peoplelist';
