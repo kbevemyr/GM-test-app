@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import { Link, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import { getMyAccounts, addConsent } from './store/actions';
+import { addConsent } from './store/actions';
 
 //import { Route, Link, withRouter } from "react-router-dom";
 

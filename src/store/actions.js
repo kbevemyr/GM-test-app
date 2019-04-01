@@ -78,6 +78,7 @@ function receiveLogout() {
   }
 }
 
+/*
 function getData() {
   return {
     type: FETCH_REQUEST,
@@ -96,6 +97,7 @@ function noData() {
     type: FETCH_FAILURE,
   }
 }
+*/
 
 function gotUserdata(data) {
   return {
