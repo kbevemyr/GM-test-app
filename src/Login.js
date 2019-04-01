@@ -46,7 +46,7 @@ class Login extends Component {
   }
 
   handleLoginEvent(e) {
-    const { username, password, rememberme } = this.state;
+    const { username, password } = this.state;
     console.log("handleLoginEvent. creds "+ username+"/"+password);
     this.props.onLogin(this.state);
   }
