@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router} from 'react-router-dom';
+import { Route, HashRouter as Router} from 'react-router-dom';
 import Main from "./Main";
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -30,7 +30,7 @@ configSocket(store);
 ReactDOM.render((
   <Provider store={store}>
     <Router>
-      <Main />
+      <Route path="/" component={Main}/>
     </Router>
   </Provider>
 ), document.getElementById('root'));

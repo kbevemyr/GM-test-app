@@ -6,8 +6,7 @@ class Public extends Component {
     return (
       <div>
         <h2>What is this?</h2>
-        <p>This is an app where you can list all the people you have in
-        your Google contacts. </p>
+        <p>For testing PSD2 initiatives. </p>
       </div>
     );
   }
