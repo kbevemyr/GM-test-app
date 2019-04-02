@@ -2,10 +2,7 @@ import React, {Component} from "react";
 import { Route, NavLink, withRouter } from "react-router-dom";
 
 import '@material/react-top-app-bar/dist/top-app-bar.css';
-import '@material/react-material-icon/dist/material-icon.css';
 import MDCTopAppBar from '@material/react-top-app-bar';
-//import MaterialIcon from '@material/react-material-icon';
-//import MaterialIcon2 , {colorPalette} from 'material-icon-react';
 
 import OAuthLogin from './OAuthLogin';
 
@@ -14,7 +11,6 @@ import Login from "./Login";
 import Private from "./Private";
 
 import { connect } from 'react-redux';
-//import { loginUser } from './store/actions';
 
 class Main extends Component {
   constructor(props) {

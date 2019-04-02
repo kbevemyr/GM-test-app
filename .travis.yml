@@ -12,3 +12,9 @@ true:
 before_install:
 - openssl aes-256-cbc -K $encrypted_e3cca9ded6f5_key -iv $encrypted_e3cca9ded6f5_iv
   -in deploy_rsa.enc -out deploy_rsa -d
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --quiet -e "ssh -p 2024" $TRAVIS_BUILD_DIR/build travis@musen.bevemyr.com:www/
+  on:
+    branch: master
