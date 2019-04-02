@@ -10,7 +10,7 @@ script:
 true:
   branch: master
 addons:
-  ssh_known_hosts: musen.bevemyr.com
+  ssh_known_hosts: musen.bevemyr.com:2024
 before_install:
 - openssl aes-256-cbc -K $encrypted_e3cca9ded6f5_key -iv $encrypted_e3cca9ded6f5_iv -in deploy_rsa.enc -out deploy_rsa -d
 deploy:
