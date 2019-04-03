@@ -4,6 +4,9 @@ import { Route, NavLink, withRouter } from "react-router-dom";
 import '@material/react-top-app-bar/dist/top-app-bar.css';
 import MDCTopAppBar from '@material/react-top-app-bar';
 
+import Icon from '@mdi/react';
+import { mdiHome, mdiLogin, mdiLogout } from '@mdi/js';
+
 import OAuthLogin from './OAuthLogin';
 
 import Public from "./Public";
@@ -39,10 +42,18 @@ class Main extends Component {
           <div className="header">
             <MDCTopAppBar
               className="mdc-top-app-bar--fixed"
-              title='MyPeople by GT16'
-              navigationIcon={<NavLink to="/public">public</NavLink>}
+              title='GM reporting'
+              navigationIcon={<NavLink to="/public">
+                                <Icon path={mdiHome} />
+                              </NavLink>}
               actionItems={[
-                  <NavLink to="/private">private</NavLink>
+                  <NavLink to="/private">{
+                    this.props.isAuthenticated ? (
+                        <Icon path={mdiLogout} />
+                      ) : (
+                        <Icon path={mdiLogin} />
+                      )}
+                  </NavLink>
               ]}
             />
           </div>
