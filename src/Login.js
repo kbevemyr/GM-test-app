@@ -1,65 +1,54 @@
 import React, { Component } from 'react';
 
-import Button from '@material/react-button/dist';
-import '@material/react-button/dist/button.css';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 
-import TextField, {Input} from '@material/react-text-field';
-import '@material/react-text-field/dist/text-field.css';
-
-//Unable to install latest
-//import Checkbox from '@material/react-checkbox';
-//import '@material/react-checkbox/dist/checkbox.css';
-
-import '@material/react-switch/dist/switch.css';
-import Switch from '@material/react-switch';
-
-import './Login.css';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { Redirect, withRouter } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 
 import { loginUser } from './store/actions';
-
-//import {MDCRipple} from '@material/ripple';
-//import {MDCTopAppBar} from '@material/top-app-bar/index';
-//import FormField from '@material/form-field/dist';
-//import Checkbox from '@material/checkbox/dist';
 
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.handleLoginEvent = this.handleLoginEvent.bind(this);
-    this.handleLoginKatrinEvent = this.handleLoginKatrinEvent.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLoginKatrin = this.handleLoginKatrin.bind(this);
     this.state = {
       username: '',
       password: '',
-      rememberme: false,
+      open: this.props.init,
       redirectToPreviousRoute: false,
     };
   }
 
-  handleCancelEvent(e) {
-    console.log("Login.user clicked Cancel button");
-    return;
-  }
-
-  handleLoginEvent(e) {
+  handleLogin = () => {
     const { username, password } = this.state;
-    console.log("handleLoginEvent. creds "+ username+"/"+password);
+    console.log("handleLogin. creds "+ username+"/"+password);
     this.props.onLogin(this.state);
+    this.setState({ open: false });
   }
 
-  handleLoginKatrinEvent(e) {
+  handleLoginKatrin = () => {
     const katrin_cred = {
       username: "katrin",
       password: "test",
-      rememberme: false,
+      open: false,
     };
     this.setState(katrin_cred);
     this.props.onLogin(this.state);
   }
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     const { from } = this.props.location.state || { from : {patname: '/'} };
@@ -71,69 +60,61 @@ class Login extends Component {
     }
 
     return (
-
-      <div className="Login">
-        <form>
-          <div className='button-container'>
-            <Button className='button-alternate' raised
-              onClick={(e) => this.handleLoginKatrinEvent(e)}
+      <div>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="login-dialog-title"
+          >
+          <DialogTitle id="login-dialog-title">Login</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Enter credentials for GM reporting service.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="username"
+              label="Username"
+              type="username"
+              fullWidth
               >
+              <Input
+                value={this.state.username}
+                type='text'
+                onChange={(e) => this.setState({username: e.target.value})}
+                />
+            </TextField>
+            <TextField
+              margin="dense"
+              id="password"
+              label="Password"
+              type="password"
+              fullWidth
+              >
+              <Input
+                value={this.state.password}
+                type='password'
+                onChange={(e) => this.setState({password: e.target.value})}
+                />
+            </TextField>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={this.handleClose}
+              color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleLoginKatrin}>
               Katrin
             </Button>
-          </div>
-          <TextField
-            label='Username'
-            id='username'
-            floatingLabelClassName='UserName'
-            lineRippleClassName='mdc-line-ripple'
-            className='mdc-text-field--box username'
-            >
-            <Input
-              value={this.state.username}
-              type='text'
-              onChange={(e) => this.setState({username: e.target.value})}
-              />
-          </TextField>
-          <TextField
-            label='Password'
-            id='password'
-            floatingLabelClassName='mdc-floating-label'
-            lineRippleClassName='mdc-line-ripple'
-            className='mdc-text-field--box password'
-            >
-            <Input
-              value={this.state.password}
-              type='password'
-              onChange={(e) => this.setState({password: e.target.value})}
-              />
-          </TextField>
-
-          <div className='form-field-container'>
-            <Switch
-              nativeControlId='rememberme'
-              checked={this.state.rememberme}
-              onChange={(e) => this.setState({
-                rememberme: e.target.checked})
-              }
-            />
-          <label htmlFor='rememberme' className='rememberme'>
-              Remember Me
-            </label>
-          </div>
-
-          <div className='button-container'>
-          <Button
-            onClick={(e) => this.handleCancelEvent(e)}
-          >
-            Cancel
-          </Button>
-          <Button className='button-alternate' raised
-            onClick={(e) => this.handleLoginEvent(e)}
-          >
-            Login
-          </Button>
-          </div>
-        </form>
+            <Button
+              onClick={this.handleLogin}
+              color="primary">
+              Login
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

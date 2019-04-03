@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Route, NavLink, withRouter } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
 
 import '@material/react-top-app-bar/dist/top-app-bar.css';
 import MDCTopAppBar from '@material/react-top-app-bar';
@@ -43,29 +43,29 @@ class Main extends Component {
             <MDCTopAppBar
               className="mdc-top-app-bar--fixed"
               title='GM reporting'
-              navigationIcon={<NavLink to="/public">
+              navigationIcon={<Link to="/public">
                                 <Icon path={mdiHome} />
-                              </NavLink>}
+                              </Link>}
               actionItems={[
-                  <NavLink to="/private">{
+                  <Link to="/private">{
                     this.props.isAuthenticated ? (
                         <Icon path={mdiLogout} />
                       ) : (
                         <Icon path={mdiLogin} />
                       )}
-                  </NavLink>
+                  </Link>
               ]}
             />
           </div>
 
           <div className="content mdc-top-app-bar--fixed-adjust">
             <Route path="/public" component={Public} />
-            <Route path="/login" component={Login} />
+            <Route path="/login" render={() => <Login init={true} />} />
             <Route path="/private" render={() =>
               this.props.isAuthenticated ? (
                   <Private />
                 ) : (
-                  <Login />
+                  <Login init={true} />
                 )
               } />
           </div>
