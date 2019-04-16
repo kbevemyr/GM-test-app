@@ -1,4 +1,4 @@
-import { serverLogin, serverGet, serverPost } from '../support.js';
+import { serverLogin, serverGet, serverPost } from './__mocks__/MOCK.support.js';
 
 export const OAUTH_REQUEST = 'OAUTH_REQUEST';
 export const OAUTH_SUCCESS = 'OAUTH_SUCCESS';
@@ -146,7 +146,7 @@ export function loginUser (creds) {
   return dispatch => {
     dispatch(getUser(creds))
 
-    return serverLogin(creds.username, creds.password, creds.rememberme).then(
+    return serverLogin(creds.username, creds.password).then(
       (res) => {
         //console.log("got: "+ JSON.stringify(res));
         if (res.status === "error") {
@@ -154,12 +154,12 @@ export function loginUser (creds) {
           dispatch(loginFailed(res.reason))
         }
         else {
-          //console.log("Login.login successful: sid="+res.sid);
+          console.log("Login.login successful: res="+JSON.stringify(res));
           document.cookie = "sid="+res.sid+" ;path=/";
           dispatch(receiveLogin(res.sid));
-          //dispatch(getMyUser(res.sid));
-          dispatch(addCredentials(res.sid, "Google"));
-          dispatch(addCredentials2(res.sid, "Swedbank_sandbox"));
+          dispatch(getMyUser(res.sid));
+          //dispatch(addCredentials(res.sid, "Google"));
+          //dispatch(addCredentials2(res.sid, "Swedbank_sandbox"));
         }
       }).catch(err => console.log("Error in loginUser ", err))
   }
@@ -194,7 +194,7 @@ export function getMyUser (sid){
 
             }
             else {
-              //console.log("reducer.getMyUser: "+JSON.stringify(res, undefined, 2));
+              //console.log("action.getMyUser: "+JSON.stringify(res, undefined, 2));
               dispatch(gotUserdata(res.user));
             }
           }

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -21,32 +20,36 @@ class Login extends Component {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLoginKatrin = this.handleLoginKatrin.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.state = {
-      username: '',
-      password: '',
+      username: 'pia',
+      password: 'ppp',
+      rememberme: false,
       open: this.props.init,
       redirectToPreviousRoute: false,
     };
   }
 
-  handleLogin = () => {
+  handleLogin = (e) => {
     const { username, password } = this.state;
+    //console.log(JSON.stringify(this.state));
     console.log("handleLogin. creds "+ username+"/"+password);
-    this.props.onLogin(this.state);
     this.setState({ open: false });
+    this.props.onLogin({ username: username, password: password });
   }
 
-  handleLoginKatrin = () => {
+  handleLoginKatrin = (e) => {
     const katrin_cred = {
       username: "katrin",
       password: "test",
-      open: false,
     };
     this.setState(katrin_cred);
-    this.props.onLogin(this.state);
+    console.log(JSON.stringify(this.state));
+    this.setState({ open: false });
+    this.props.onLogin(katrin_cred);
   }
 
-  handleClose = () => {
+  handleClose = (e) => {
     this.setState({ open: false });
   };
 
@@ -60,11 +63,12 @@ class Login extends Component {
     }
 
     return (
-      <div>
+
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="login-dialog-title"
+          onBackdropClick={this.handleClose}
           >
           <DialogTitle id="login-dialog-title">Login</DialogTitle>
           <DialogContent>
@@ -74,9 +78,9 @@ class Login extends Component {
             <TextField
               autoFocus
               margin="dense"
-              id="username"
+              id="usernameinput"
               label="Username"
-              type="username"
+              type="text"
               fullWidth
               >
               <Input
@@ -87,7 +91,7 @@ class Login extends Component {
             </TextField>
             <TextField
               margin="dense"
-              id="password"
+              id="passwordinput"
               label="Password"
               type="password"
               fullWidth
@@ -101,29 +105,29 @@ class Login extends Component {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={this.handleClose}
+              onClick={(e) => this.handleClose(e)}
               color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleLoginKatrin}>
+            <Button onClick={(e) => this.handleLoginKatrin()}>
               Katrin
             </Button>
             <Button
-              onClick={this.handleLogin}
-              color="primary">
+              onClick={(e) => this.handleLogin(e)}
+              color="primary"
+              raised>
               Login
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+
     );
   }
 }
 
 // Store handling
-
 const mapStateToProps = state => ({
-  username: state.login_name
+  username: state.userprofile,
 });
 
 const mapDispatchToProps = dispatch => ({

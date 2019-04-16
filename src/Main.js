@@ -47,6 +47,7 @@ class Main extends Component {
                                 <Icon path={mdiHome} />
                               </Link>}
               actionItems={[
+                  <Link to="/settings"><Icon path="settings" /></Link>,
                   <Link to="/private">{
                     this.props.isAuthenticated ? (
                         <Icon path={mdiLogout} />
@@ -60,6 +61,7 @@ class Main extends Component {
 
           <div className="content mdc-top-app-bar--fixed-adjust">
             <Route path="/public" component={Public} />
+            <Route path="/settings" render={() => <BankFilter />} />
             <Route path="/login" render={() => <Login init={true} />} />
             <Route path="/private" render={() =>
               this.props.isAuthenticated ? (
