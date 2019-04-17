@@ -1,8 +1,13 @@
 import React, {Component} from "react";
 import { Route, Link, withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
 
-@import "@material/form-field/mdc-form-field";
-@import "@material/checkbox/mdc-checkbox";
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class BankFilter extends Component {
   constructor(props) {
@@ -11,10 +16,10 @@ class BankFilter extends Component {
 
   handleSetBankFilterEvent(e) {
     const bankfilter = {
-      nordea: false,
-      handelsbanken: true,
-      seb: false,
-      swedbank: false,
+      nordea: {name: "Nordea", checked: false},
+      handelsbanken: {name: "Handelsbanken", checked: true},
+      seb: {name: "SEB", checked: false},
+      swedbank: {name: "Swedbank", checked: false},
     };
     this.props.filter = bankfilter;
   }
@@ -22,36 +27,24 @@ class BankFilter extends Component {
 render() {
   return (
     <div>
-      <form>
-
-        {this.props.filter.map(x =>
-          (
-        <div className='form-field-container'>
-          <Switch
-            nativeControlId='bf'+x
-            checked={this.state.rememberme}
-            onChange={(e) => this.setState({
-              rememberme: e.target.checked})
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Report content</FormLabel>
+        <FormGroup>
+          {this.props.filter.map(x =>
+            (
+          <FormControlLabel
+            control={
+              <Checkbox checked={x.checked} onChange={console.log(x.name)} value={x.checked} />
             }
+            label={x.name}
           />
-          <label htmlFor='bf'+x className='bf'+x>
-            {x}
-          </label>
-        </div>
       ))}
-
-      <div className='button-container'>
-        <Button className='button-alternate' raised
-          onClick={(e) => this.handleSetBankFilterEvent(e)}
-          >
-          GO
-        </Button>
-      </div>
-
-      </form>
+        </FormGroup>
+        <FormHelperText>The selected banks will be part of the report.</FormHelperText>
+      </FormControl>
     </div>
-
   )
+}
 }
 
 // Store handling
@@ -61,8 +54,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getTheUser: (sid) => {
-      dispatch(getMyUser(sid));
+    getTheFilter: (sid) => {
+      console.log("implement dispatch(getBankFilter(sid)");
   },
 });
 

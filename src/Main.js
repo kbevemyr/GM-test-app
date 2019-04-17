@@ -12,6 +12,7 @@ import OAuthLogin from './OAuthLogin';
 import Public from "./Public";
 import Login from "./Login";
 import Private from "./Private";
+import BankFilter from './BankFilter';
 
 import { connect } from 'react-redux';
 
