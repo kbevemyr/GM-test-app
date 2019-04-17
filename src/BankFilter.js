@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Route, Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import FormLabel from '@material-ui/core/FormLabel';
@@ -10,9 +10,10 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 class BankFilter extends Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+      super(props);
+      this.handleSetBankFilterEvent = this.handleSetBankFilterEvent.bind(this);
+    }
 
   handleSetBankFilterEvent(e) {
     const bankfilter = {
