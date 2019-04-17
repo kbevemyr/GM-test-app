@@ -10,7 +10,7 @@ script:
 true:
   branch: master
 env:
-- CLUSTER_NAME=gt16-first-cluster SERVICE_NAME=custom-gt16-service IMAGE_REPO_URL=gm-test-gt16:latest
+- CLUSTER_NAME=gt16-first-cluster SERVICE_NAME=custom-gt16-service IMAGE_REPO_URL=gm-test-gt16
 addons:
   ssh_known_hosts: musen.bevemyr.com:2024
 before_deploy:
