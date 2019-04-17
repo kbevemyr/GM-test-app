@@ -25,7 +25,7 @@ deploy:
     branch: master
 # deployment to AWS ECS
 env:
-- CLUSTER_NAME=gt16-first-cluster SERVICE_NAME= custom-gt16-service IMAGE_REPO_URL=gm-test-gt16:latest
+- CLUSTER_NAME=gt16-first-cluster SERVICE_NAME=custom-gt16-service IMAGE_REPO_URL=gm-test-gt16:latest
 deploy:
   provider: script
   script: bash awsdeploy.sh
