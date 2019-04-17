@@ -9,6 +9,8 @@ script:
 - npm run build
 true:
   branch: master
+env:
+- CLUSTER_NAME=gt16-first-cluster SERVICE_NAME=custom-gt16-service IMAGE_REPO_URL=gm-test-gt16:latest
 addons:
   ssh_known_hosts: musen.bevemyr.com:2024
 before_deploy:
@@ -16,18 +18,14 @@ before_deploy:
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - ssh-add /tmp/deploy_rsa
-# deployment on www.gt16.se
+# deployment on first www.gt16.se then AWS ECS
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: rsync -r --quiet -e "ssh -p 2024" $TRAVIS_BUILD_DIR/build travis@musen.bevemyr.com:www/
-  on:
-    branch: master
-# deployment to AWS ECS
-env:
-- CLUSTER_NAME=gt16-first-cluster SERVICE_NAME=custom-gt16-service IMAGE_REPO_URL=gm-test-gt16:latest
-deploy:
-  provider: script
-  script: bash awsdeploy.sh
-  on:
-    branch: master
+  - provider: script
+    skip_cleanup: true
+    script: rsync -r --quiet -e "ssh -p 2024" $TRAVIS_BUILD_DIR/build travis@musen.bevemyr.com:www/
+    on:
+      branch: master
+  - provider: script
+    script: bash awsdeploy.sh
+    on:
+      branch: master
