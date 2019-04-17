@@ -1,4 +1,5 @@
-import { serverLogin, serverGet, serverPost } from './__mocks__/MOCK.support.js';
+import { serverLogin, serverGet, serverPost } from './support.js';
+//import { serverLogin, serverGet, serverPost } from './__mocks__/MOCK.support.js';
 
 export const OAUTH_REQUEST = 'OAUTH_REQUEST';
 export const OAUTH_SUCCESS = 'OAUTH_SUCCESS';
